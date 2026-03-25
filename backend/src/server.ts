@@ -1,18 +1,26 @@
-import exprss, { json } from "express"
+import exprss, { json } from  "express"
 import cors from "cors"
 import dotenv from "dotenv"
+import {connectDB} from "./config/db"
+import authRouter from "./routers/authRouter";
+
 
 dotenv.config();
 
-const app : Express = exprss();
+const app  = exprss();
 
 app.use(cors())
 
-app.use(json)
+app.use(exprss.json());
+
+app.use("/api/auth",authRouter);
 
 
 const PORT : string | number = process.env.BACKEND_PORT || 5000;
 
-app.listen(PORT,() => {
-   console.log(`✔️ Server connected on ${PORT}`);
+connectDB(process.env.MONGO_URI).then(() => {
+    app.listen(PORT, () => {
+        console.log(`Server running on ${PORT}`)
+    })
 })
+

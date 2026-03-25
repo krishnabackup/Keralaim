@@ -1,15 +1,29 @@
-import { Text, View } from "react-native";
+import { useEffect, useState } from "react";
+import "../global.css"
+import { Redirect, useRouter } from "expo-router";
+import * as SecureStore from "expo-secure-store";
+import { ActivityIndicator } from "react-native";
 
 export default function Index() {
+    const [loading,setLoading] = useState(true);
+    const [route,setRoute] = useState<string | null>(null);
+  useEffect(()=> {
+    const authCheck = async () => {
+     const token = await SecureStore.getItemAsync("token");
+     if(token){
+      setRoute("/(tabs)/(home)/dashboard");
+     }else{
+      setRoute("/(auth)/login")
+     }
+     setLoading(false);
+    }
+    
+   authCheck();
+  },[])
+  if(loading) return<ActivityIndicator/>
+  if(!route) return null;
+
   return (
-    <View
-      style={{
-        flex: 1,
-        justifyContent: "center",
-        alignItems: "center",
-      }}
-    >
-      <Text>Edit app/index.tsx to edit this screen.</Text>
-    </View>
+    <Redirect href={route}/>
   );
 }
