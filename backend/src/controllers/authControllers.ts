@@ -9,11 +9,12 @@ dotenv.config();
 
 export const login = async (req: Request<{}, {}, LoginBody>, res: Response<ApiResponse<LoginResponseBody>>) => {
     const { email, password } = req.body;
-
+    console.log("Body:",req.body);
+    console.log(email,password);
     if (!email) return res.status(400).json({ message: "Email is required ", success: false })
-
-    const user: UsersType | null = await Users.findOne({ email });
-
+    const normalizedemail = email.trim().toLowerCase();
+    const user: UsersType | null = await Users.findOne({ email : normalizedemail });
+    console.log(user);
     if (!user) return res.status(404).json({ message: "Invalid Credential", success: false })
 
     const isPassword = await bcrypt.compare(password, user.password);
@@ -39,7 +40,7 @@ export const login = async (req: Request<{}, {}, LoginBody>, res: Response<ApiRe
 export const register = async (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse<RegisterResponseBody>>) => {
     try{
  const { name, district, email, password} = req.body;
-
+   console.log(name,district,email,password);
     if (!name || !district || !email || !password) return res.status(400).json({ message: "All fields required ", success: false });
 
     const existingUser = await Users.findOne({ email });

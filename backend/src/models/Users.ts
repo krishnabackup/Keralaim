@@ -18,10 +18,6 @@ const userSchema = new mongoose.Schema({
         required:true,
         unique:true,
     },
-    mobile:{
-        type:String,
-        unique:true,
-    },
     password:{
         type:String,
         required:true,
@@ -42,4 +38,4 @@ export type UsersType = mongoose.InferSchemaType<typeof userSchema> & {
   _id: Types.ObjectId;
 };
 
-export const Users = mongoose.model('User', userSchema);
+export const Users = mongoose.model('users', userSchema);

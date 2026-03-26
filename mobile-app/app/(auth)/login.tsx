@@ -60,10 +60,13 @@ export default function LoginScreen() {
       </TouchableOpacity>
 
       {/* Signup */}
+      <View className="flex flex-row items-baseline justify-center">
       <Text className="text-center text-gray-500 mb-4">
-        <Text>If No Account,{" "}</Text>
+        If No Account,{" "}</Text>
+        <TouchableOpacity onPress={()=>router.replace("/(auth)/register")}>
         <Text className="text-blue-500 font-semibold">Sign Up</Text>
-      </Text>
+        </TouchableOpacity>
+      </View>
 
       {/* Divider */}
       <View className="flex-row items-center mb-4">

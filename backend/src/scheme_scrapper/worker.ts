@@ -2,10 +2,10 @@ import puppeteer, { Page } from "puppeteer";
 import { SchemeModel } from "../models/Schemas"
 import { scrapDetailsOfEachScheme } from "./scrapDetailsOfEachScheme";
 
-const CONCURANCY = 5;
+const CONCURANCY = 2;
 
 export const runWorker = async () => {
-  
+    let i = 0;
     const browser =await  puppeteer.launch({headless : true});
 
     const pages = await Promise.all(
@@ -25,7 +25,7 @@ export const runWorker = async () => {
         })
     );
 
-    while(true){
+    while(i<40){
        const schemes = await SchemeModel.find({
        "schemeDetails.details.plainText": ""
     }).limit(CONCURANCY);
