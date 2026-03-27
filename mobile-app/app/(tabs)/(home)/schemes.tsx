@@ -1,14 +1,25 @@
+import Pagination from "@/components/Pagination";
 import SchemeCard from "@/components/SchemesScreen";
+import { useSchemes } from "@/hooks/useSchemes";
+import { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function SchemesScreen() {
   const insets = useSafeAreaInsets();
+  const [pageNumber, setPageNumber] = useState(1);
+  const { isLoading, data, isError, isSuccess } = useSchemes(pageNumber);
+  if (isLoading) {
+    return <Text>Loading...</Text>;
+  }
 
+  if (isError) {
+    return <Text>Error loading schemes</Text>;
+  }
   return (
     <View
       className="flex-1 bg-gray-100"
-      style={{ paddingTop: insets.top }}
+      style={{ paddingTop: insets.top, paddingBottom: insets.bottom + 60 }}
     >
       {/* Header */}
       <View className="bg-sky-400 py-4 items-center">
@@ -35,10 +46,14 @@ export default function SchemesScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* Cards */}
-        <SchemeCard />
-        <SchemeCard />
-
+        {data?.data?.map((scheme: any) => (
+          <SchemeCard key={scheme.slug} scheme={scheme} />
+        ))}
+        <Pagination
+          totalPages={data.totalPages}
+          currentPage={pageNumber}
+          onPageChange={setPageNumber}
+        />
       </ScrollView>
     </View>
   );

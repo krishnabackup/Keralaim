@@ -3,7 +3,7 @@ import { router } from "expo-router";
 import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
-import { RegisterBody } from "./auth.types";
+import { RegisterBody } from "../../types/auth.types";
 import { register } from "@/services/authService";
 
 export default function RegisterScreen() {

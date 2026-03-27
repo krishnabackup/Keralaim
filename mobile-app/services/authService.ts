@@ -1,4 +1,4 @@
-import { RegisterBody } from "@/app/(auth)/auth.types";
+import { RegisterBody } from "@/types/auth.types";
 import api from "./api";
 
 export const login = async (email : string , password : string) => {

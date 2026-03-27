@@ -5,6 +5,7 @@ import { View ,Text, TouchableOpacity} from "react-native";
 
 export default function AppDashboard(){
     const router = useRouter();
+    
    return(
     <>
      <View className="flex-1 bg-gray-100 px-5">

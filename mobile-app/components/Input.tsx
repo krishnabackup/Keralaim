@@ -1,4 +1,4 @@
-import { InputProps, RegisterBody } from "@/app/(auth)/auth.types";
+import { InputProps, RegisterBody } from "@/types/auth.types";
 import React from "react";
 import { TextInput } from "react-native";
 

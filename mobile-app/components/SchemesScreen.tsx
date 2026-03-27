@@ -1,24 +1,26 @@
-import { Text, View } from "react-native";
+import { SchemeCardTypes } from "@/types/schemes.types";
+import { useRouter } from "expo-router";
+import { Text, TouchableOpacity, View } from "react-native";
 
-export default function SchemeCard() {
+export default function SchemeCard({key , scheme} : {key : string , scheme : SchemeCardTypes}) {
+  const router = useRouter();
   return (
+    <TouchableOpacity onPress={() => router.replace("")}>
     <View className="bg-sky-300 rounded-2xl p-4 mb-4">
       
-      <Text className="text-white font-semibold mb-1">
-        KSCSTE Post-Doctoral Fellowship Programme
+      <Text className="text-black font-semibold mb-1">
+        {scheme.schemeName}
       </Text>
 
-      <Text className="text-white text-xs mb-2">
-        Kerala
+      <Text className="text-gray-500 text-s mb-2">
+        {scheme.beneficiaryState}
       </Text>
 
-      <Text className="text-white text-sm">
-        KSCSTE Post-Doctoral Fellowships will be provided to those who possess
-        Ph.D. in science and engineering with high quality research publications
-        in SCI journals. The program aims to encourage Ph.D. holders to pursue
-        further research and to develop career as scientist.
+      <Text className="text-gray-700 text-sm">
+        {scheme.briefDescription}
       </Text>
 
     </View>
+    </TouchableOpacity>
   );
 }

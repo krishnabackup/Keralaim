@@ -8,7 +8,7 @@ export function ServiceCard({ icon, title , path}: { icon: IconType; title: stri
   const isImage = typeof icon !== "string";
   const router = useRouter();
   return (
-    <TouchableOpacity className="w-[47%] h-32 bg-sky-300 rounded-2xl items-center justify-center mb-5 shadow-md" onPress={() => router.push(path)}>
+    <TouchableOpacity className="w-[47%] h-32 bg-sky-300 rounded-2xl items-center justify-center mb-5 shadow-md" onPress={() => router.push(`/(tabs)/(home)${path}`)}>
        {isImage ? (
         <Image
           source={icon as ImageSourcePropType}
