@@ -1,6 +1,9 @@
 {
   "dependencies": {
+    "cloudinary": "^2.9.0",
     "dotenv": "^17.3.1",
+    "expo-image-picker": "^55.0.14",
+    "multer": "^2.1.1",
     "tsc-node": "^0.0.3"
   }
 }

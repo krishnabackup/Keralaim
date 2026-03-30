@@ -1,3 +1,4 @@
+import { AppBar } from "@/components/AppBar";
 import Pagination from "@/components/Pagination";
 import SchemeCard from "@/components/SchemesScreen";
 import { useSchemes } from "@/hooks/useSchemes";
@@ -22,11 +23,7 @@ export default function SchemesScreen() {
       style={{ paddingTop: insets.top, paddingBottom: insets.bottom + 60 }}
     >
       {/* Header */}
-      <View className="bg-sky-400 py-4 items-center">
-        <Text className="text-white text-lg font-semibold">
-          KeralAim
-        </Text>
-      </View>
+      <AppBar/>
 
       <ScrollView className="px-4 mt-4">
 
