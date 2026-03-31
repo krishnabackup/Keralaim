@@ -9,3 +9,8 @@ export type PaginationProps = {
   onPageChange: (page: number) => void;
 };
 
+export type Message = {
+  id: string;
+  text: string;
+  sender: "user" | "bot";
+};

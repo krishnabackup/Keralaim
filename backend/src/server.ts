@@ -5,6 +5,7 @@ import {connectDB} from "./config/db"
 import authRouter from "./routers/authRouter";
 import schemeRouter from "./routers/schemesRouter";
 import complaintRouter from "./routers/complaintRouter";
+import aichatRouter from "./routers/aichatRouter";
 
 
 dotenv.config();
@@ -18,6 +19,7 @@ app.use(exprss.json());
 app.use("/api/auth",authRouter);
 app.use("/api/schemes",schemeRouter)
 app.use("/api/complaints",complaintRouter)
+app.use("/api/ai",aichatRouter)
 
 const PORT : string | number = process.env.BACKEND_PORT || 5000;
 
