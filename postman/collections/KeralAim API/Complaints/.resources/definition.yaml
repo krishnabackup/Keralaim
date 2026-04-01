@@ -1,0 +1,4 @@
+$kind: collection
+name: Complaints
+description: Complaint submission endpoints
+order: 3000

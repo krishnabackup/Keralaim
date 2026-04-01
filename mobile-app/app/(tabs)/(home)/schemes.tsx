@@ -1,6 +1,8 @@
 import { AppBar } from "@/components/AppBar";
+import LoadingDots from "@/components/LoadingDots";
 import Pagination from "@/components/Pagination";
 import SchemeCard from "@/components/SchemesScreen";
+import SchemeCardSkeleton from "@/components/SckeletonCard";
 import { useSchemes } from "@/hooks/useSchemes";
 import { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView } from "react-native";
@@ -10,10 +12,6 @@ export default function SchemesScreen() {
   const insets = useSafeAreaInsets();
   const [pageNumber, setPageNumber] = useState(1);
   const { isLoading, data, isError, isSuccess } = useSchemes(pageNumber);
-  if (isLoading) {
-    return <Text>Loading...</Text>;
-  }
-
   if (isError) {
     return <Text>Error loading schemes</Text>;
   }
@@ -23,8 +21,7 @@ export default function SchemesScreen() {
       style={{ paddingTop: insets.top, paddingBottom: insets.bottom + 60 }}
     >
       {/* Header */}
-      <AppBar/>
-
+      <AppBar />
       <ScrollView className="px-4 mt-4">
 
         {/* Title */}
@@ -43,14 +40,26 @@ export default function SchemesScreen() {
           </TouchableOpacity>
         </View>
 
-        {data?.data?.map((scheme: any) => (
-          <SchemeCard key={scheme.slug} scheme={scheme} />
-        ))}
-        <Pagination
-          totalPages={data.totalPages}
-          currentPage={pageNumber}
-          onPageChange={setPageNumber}
-        />
+        {isLoading ? (
+          <>
+            {[1, 2, 3, 4].map((i) => (
+              <SchemeCardSkeleton key={i} />
+            ))}
+          </>
+        ) : isError ? (
+          <Text>Error loading schemes</Text>
+        ) : (
+          data?.data?.map((scheme: any) => (
+            <SchemeCard key={scheme.slug} scheme={scheme} />
+          ))
+        )}
+        {
+          data?.totalPages > 1 && <Pagination
+            totalPages={data.totalPages}
+            currentPage={pageNumber}
+            onPageChange={setPageNumber}
+          />
+        }
       </ScrollView>
     </View>
   );

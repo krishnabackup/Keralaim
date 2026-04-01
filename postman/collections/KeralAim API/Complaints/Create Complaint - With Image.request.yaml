@@ -1,0 +1,38 @@
+$kind: http-request
+name: Create Complaint - With Image
+method: POST
+url: '{{baseUrl}}/complaints'
+order: 1000
+body:
+  type: formdata
+  content:
+    - key: location
+      type: text
+      value: 'Thiruvananthapuram, Kerala'
+    - key: image
+      type: file
+      src: ''
+      description: Placeholder — attach an image file before sending
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200", function () {
+          pm.response.to.have.status(200);
+      });
+
+      pm.test("Response has success: true", function () {
+          pm.expect(pm.response.json().success).to.be.true;
+      });
+
+      pm.test("Response has data object", function () {
+          pm.expect(pm.response.json()).to.have.property("data");
+          pm.expect(pm.response.json().data).to.be.an("object");
+      });
+
+      pm.test("data has location, status, _id", function () {
+          const data = pm.response.json().data;
+          pm.expect(data).to.have.property("location");
+          pm.expect(data).to.have.property("status");
+          pm.expect(data).to.have.property("_id");
+      });

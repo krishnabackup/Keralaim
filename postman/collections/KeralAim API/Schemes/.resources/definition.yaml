@@ -1,0 +1,4 @@
+$kind: collection
+name: Schemes
+description: Scheme listing and recommendation endpoints
+order: 2000

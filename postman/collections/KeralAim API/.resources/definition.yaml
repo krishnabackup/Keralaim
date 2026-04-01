@@ -1,0 +1,15 @@
+$kind: collection
+name: KeralAim API
+description: Complete API collection for KeralAim backend with auth, schemes, and complaints endpoints
+variables:
+  - key: authToken
+    value: ''
+    description: Bearer token for authenticated requests
+  - key: baseUrl
+    value: 'http://localhost:5000'
+    description: Base URL for API endpoints
+auth:
+  type: bearer
+  credentials:
+    - key: token
+      value: '{{authToken}}'

@@ -4,6 +4,7 @@ import { ApiResponse } from "../types/auth.types";
 import { SchemaCardDetails } from "../types/cardTitle,types";
 import { Request, Response } from "express"
 import { PaginatedResponse } from "../types/paginated";
+import { compare } from "bcrypt";
 
 export const getAllSchemes = async (req: Request, res: Response<PaginatedResponse<SchemaCardDetails[]>>) => {
     const page = Number(req.query.page) || 1;

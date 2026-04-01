@@ -1,0 +1,15 @@
+$kind: http-request
+name: Get All Schemes - Invalid Token
+method: GET
+url: '{{baseUrl}}/api/schemes'
+order: 4000
+headers:
+  - key: Authorization
+    value: Bearer invalidtoken123
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 401 or 403", function () {
+          pm.expect([401, 403]).to.include(pm.response.code);
+      });

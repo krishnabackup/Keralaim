@@ -1,0 +1,25 @@
+$kind: http-request
+name: Login - Missing Email
+method: POST
+url: '{{baseUrl}}/api/auth/login'
+order: 6000
+headers:
+  - key: Content-Type
+    value: application/json
+body:
+  type: json
+  content: |-
+    {
+      "password": "Test@1234"
+    }
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 400", function () {
+          pm.response.to.have.status(400);
+      });
+
+      pm.test("Response has success: false", function () {
+          pm.expect(pm.response.json().success).to.be.false;
+      });

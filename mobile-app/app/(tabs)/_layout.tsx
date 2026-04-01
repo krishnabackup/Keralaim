@@ -10,24 +10,21 @@ export default function TabLayout() {
             headerShown: false,
             tabBarShowLabel: false,
             tabBarStyle: {
-                position: "absolute",
-                left: 20,
-                right: 20,
                 backgroundColor: "#71C0F5",
                 height: 50,
                 bottom: insets.bottom + 2,
                 borderRadius: 30,
+                marginHorizontal: 20,
+                position: "absolute",
                 borderTopWidth: 0,
+                elevation: 5, // Android
                 shadowColor: "#000",
-                shadowOpacity: 0.2,
+                shadowOpacity: 0.1,
                 shadowRadius: 10,
 
             },
             tabBarActiveTintColor: '#ffd33d',
             tabBarInactiveTintColor: '#cccccc',
-            tabBarBackground: () => (
-                <BlurView intensity={80} tint="light" style={{ flex: 1, borderRadius: 30 }} />
-            ),
         }}>
             <Tabs.Screen name="(home)" options={{
                 title: "Home",

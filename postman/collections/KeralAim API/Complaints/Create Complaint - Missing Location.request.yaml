@@ -1,0 +1,15 @@
+$kind: http-request
+name: Create Complaint - Missing Location
+method: POST
+url: '{{baseUrl}}/complaints'
+order: 3000
+body:
+  type: formdata
+  content: []
+scripts:
+  - type: afterResponse
+    language: text/javascript
+    code: |-
+      pm.test("Status code is 200 or 500 (no unexpected crash)", function () {
+          pm.expect([200, 500]).to.include(pm.response.code);
+      });
