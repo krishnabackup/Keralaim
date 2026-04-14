@@ -1,23 +1,10 @@
+import api from "./api";
 
-export const getLocation = async (lat : number , lon : number) => {
-    const query = `
-    [out:json];
-    (
-      node["amenity"="hospital"](around:3000,${lat},${lon});
-      node["amenity"="police"](around:3000,${lat},${lon});
-      node["office"="government"](around:3000,${lat},${lon});
-    );
-    out;
-  `;
+export const getLocation = async (lat : number , lon : number , type : string) => {
+    console.log("getLocation called with lat:", lat, "lon:", lon, "type:", type);
 
-    const res = await fetch(
-        "https://overpass-api.de/api/interpreter",
-        {
-            method: "POST",
-            body: query,
-        }
-    );
+    const res = await api.get(`/location/nearby/?lat=${lat}&lon=${lon}&type=${type}`);
 
-    const data = await res.json();
-    return data.elements;
+    const data = res.data.data;
+    return data;
 }

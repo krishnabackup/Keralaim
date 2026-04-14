@@ -1,10 +1,11 @@
 // routes/complaintRoutes.ts
 import express from "express";
-import { createComplaint } from "../controllers/complaintController";
+import { createComplaint, getUserComplaints } from "../controllers/complaintController";
 import { upload } from "../middleware/upload";
+import { isAuth } from "../middleware/authMiddleware";
 
 const complaintRouter = express.Router();
 
-complaintRouter.post("/", upload.single("image"), createComplaint);
-
+complaintRouter.post("/", isAuth,upload.single("image"), createComplaint);
+complaintRouter.get("/user", isAuth, getUserComplaints);
 export default complaintRouter;

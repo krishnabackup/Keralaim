@@ -19,3 +19,17 @@ export default function SchemeCardSkeleton() {
     </View>
   );
 }
+
+export function LocationCardSkeleton() {
+  return (
+    <View className="bg-white rounded-xl p-4 mb-4 shadow-sm">
+      
+      {/* Title */}
+      <View className="h-4 bg-gray-300 rounded w-3/4 mb-3 animate-pulse" />
+
+      {/* Subtitle */}
+      <View className="h-3 bg-gray-300 rounded w-1/2 mb-3 animate-pulse" />
+      
+    </View>
+  );
+}

@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "137938861350",
+    "project_id": "keralaim-4b046",
+    "storage_bucket": "keralaim-4b046.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137938861350:android:621031e15f8ef1b372d5e7",
+        "android_client_info": {
+          "package_name": "com.krishnadarsh.mobileapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDH57gMh4MX47uUz8G93iedmgZojbe12Ds"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

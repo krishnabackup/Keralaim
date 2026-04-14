@@ -22,9 +22,10 @@ export const createComplaint = async (req: any, res: any) => {
 
     // ✅ save to DB
     const complaint = await Complaint.create({
-      userId: req.user?.id, // from auth middleware
+      userId: req.user?.userId, // from auth middleware
       location: req.body.location,
       description: req.body.description.trim(),
+      title: req.body.title.trim(),
       imageUrl,
     });
 
@@ -35,5 +36,15 @@ export const createComplaint = async (req: any, res: any) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: "Error creating complaint" });
+  }
+};
+
+export const getUserComplaints = async (req: any, res: any) => {
+  try {
+    const complaints = await Complaint.find({ userId: req.user?.userId }).sort({ createdAt: -1 });
+    res.status(200).json({ success: true, data: complaints });
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ message: "Error fetching complaints" });
   }
 };
