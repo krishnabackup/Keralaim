@@ -29,7 +29,7 @@ export const createComplaint = async (req: any, res: any) => {
       imageUrl,
     });
 
-    res.json({
+    res.status(201).json({
       success: true,
       data: complaint,
     });

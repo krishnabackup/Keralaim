@@ -9,3 +9,16 @@ export const getAllSchemes = async(page : number) => {
     console.log("Error : " , error)
   }
 }
+
+export const getSingleScheme = async(slug : string) => {
+  try {
+    const res = await api.get(`/schemes/${slug}`);
+    return res.data
+  }
+  catch(error : any){
+      return {
+        success : error.customMessage.success,
+        message  : error.customMessage.message
+      }
+  }
+}

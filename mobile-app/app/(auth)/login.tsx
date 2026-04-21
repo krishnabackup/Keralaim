@@ -9,15 +9,15 @@ import { useRouter } from "expo-router";
 export default function LoginScreen() {
   const [email,setEmail] = useState("");
   const [password ,setPassword] = useState("");
+  const [errorMessage , setErrorMessage] = useState("");
   const router = useRouter();
    const handleLogin = async (email : string,password : string) => {
         const res = await login(email,password)
-        console.log(res);
-        await SecureStore.setItemAsync("token",res.data.token)
         if(res.success === true){
+           await SecureStore.setItemAsync("token",res.data.token)
            router.replace("/(home)/dashboard");
         }else{
-            console.log("Error login");
+            setErrorMessage(res.message.message);
         }
     }
   return (
@@ -35,7 +35,7 @@ export default function LoginScreen() {
       <Text className="text-center text-gray-500 mb-6">
         Enter your email and password
       </Text>
-
+      
       {/* Email Input */}
       <TextInput
         placeholder="email@domain.com"
@@ -51,6 +51,8 @@ export default function LoginScreen() {
         className="border border-gray-300 rounded-lg px-4 py-3 mb-6"
          onChangeText={(e) => setPassword(e)}
       />
+
+      <Text className="text-sm text-red-500">{errorMessage}</Text>
 
       {/* Continue Button */}
       <TouchableOpacity className="bg-blue-500 py-3 rounded-lg mb-4" onPress={() => handleLogin(email,password)}>

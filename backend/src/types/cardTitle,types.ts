@@ -13,3 +13,27 @@ export interface SchemaCardDetails {
     tags: string[],
 }
 
+interface StructuredItem {
+  type: string;
+  items: any[];
+  rows: any[];
+  links: any[];
+}
+
+interface SchemeSection {
+  structured: StructuredItem[];
+  plainText: string;
+}
+
+interface SchemeIndivudualDetails {
+  [key: string]: SchemeSection;
+}
+
+export interface SchemaDetails {
+  slug: string;
+  title: string;
+  beneficiaryState: string;
+  schemeFor: string;
+  schemeCategory: string[];
+  schemeDetails: SchemeIndivudualDetails;
+}

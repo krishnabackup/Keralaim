@@ -5,7 +5,7 @@ import { Text, TouchableOpacity, View } from "react-native";
 export default function SchemeCard({key , scheme} : {key : string , scheme : SchemeCardTypes}) {
   const router = useRouter();
   return (
-    <TouchableOpacity onPress={() => router.replace("")}>
+    <TouchableOpacity onPress={() => router.push(`/(tabs)/(home)/schemes/${scheme.slug}`)}>
     <View className="bg-sky-300 rounded-2xl p-4 mb-4">
       
       <Text className="text-black font-semibold mb-1">

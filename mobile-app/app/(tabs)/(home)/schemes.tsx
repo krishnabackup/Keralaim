@@ -1,11 +1,11 @@
 import { AppBar } from "@/components/AppBar";
-import LoadingDots from "@/components/LoadingDots";
 import Pagination from "@/components/Pagination";
 import SchemeCard from "@/components/SchemesScreen";
 import SchemeCardSkeleton from "@/components/SckeletonCard";
 import { useSchemes } from "@/hooks/useSchemes";
+import { Ionicons } from "@expo/vector-icons";
 import { useState } from "react";
-import { View, Text, TouchableOpacity, ScrollView } from "react-native";
+import { View, Text, TouchableOpacity, ScrollView, TextInput } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function SchemesScreen() {
@@ -25,10 +25,13 @@ export default function SchemesScreen() {
       <ScrollView className="px-4 mt-4">
 
         {/* Title */}
+        <View className="flex-row justify-between items-center mb-4 relative">
         <Text className="text-base font-semibold mb-3">
           Schemes
         </Text>
-
+          <Ionicons name="search" size={20} style={{position : "absolute" , left : 210 , top : 8 , zIndex : 1 , fontSize : 15}}/>
+        <TextInput placeholder="Search schemes..." className="bg-white rounded-lg px-4 py-2 pl-10 mb-4 shadow-sm"  />
+</View>
         {/* Toggle Buttons */}
         <View className="flex-row justify-between mb-4">
           <TouchableOpacity className="bg-sky-300 px-4 py-2 rounded-lg">

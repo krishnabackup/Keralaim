@@ -1,4 +1,4 @@
-// routes/complaintRoutes.ts
+
 import express from "express";
 import { createComplaint, getUserComplaints } from "../controllers/complaintController";
 import { upload } from "../middleware/upload";

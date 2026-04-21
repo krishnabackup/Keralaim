@@ -21,18 +21,12 @@ api.interceptors.request.use(
 );
 
 api.interceptors.response.use(
-  (response) => response,
-  async (error) => {
-    if (error.response?.status === 401) {
-      console.log("🔒 Unauthorized - logging out");
-
-      await SecureStore.deleteItemAsync("token");
-
-      // 👉 Optional: redirect to login
-      // router.replace("/login") (handled in UI layer)
-    }
-
-    return Promise.reject(error);
+  (res) => res,
+  (error) => {
+    const backendData = error?.response?.data
+    error.customMessage = backendData || "Server Error"
+    error.success = backendData?.success ?? false
+    return Promise.reject(error)
   }
 );
 

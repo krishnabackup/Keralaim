@@ -1,6 +1,7 @@
 export interface SchemeCardTypes {
     // Card Details 
     title: string;
+    slug : string,
     beneficiaryState: string;
     schemeShortTitle: string;
     level: string,

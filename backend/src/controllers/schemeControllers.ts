@@ -1,7 +1,7 @@
 
 import { SchemeModel } from "../models/Schemas";
 import { ApiResponse } from "../types/auth.types";
-import { SchemaCardDetails } from "../types/cardTitle,types";
+import { SchemaCardDetails, SchemaDetails } from "../types/cardTitle,types";
 import { Request, Response } from "express"
 import { PaginatedResponse } from "../types/paginated";
 import { compare } from "bcrypt";
@@ -39,6 +39,32 @@ export const getAllSchemes = async (req: Request, res: Response<PaginatedRespons
             page : page,
             totalPages : Math.ceil(total/limit)
         });
+}
+
+export const getSingleScheme = async(req : Request , res : Response) => {
+    const {slug} = req.params
+    if(!slug) return res.status(400).json({message : "Slug is required" , success : false})
+    
+    const scheme = await SchemeModel.findOne({slug : slug})
+    
+    if(!scheme) return res.status(404).json({message : "Not found Scheme" , success : false})
+
+ const mapScheme = (scheme: any): SchemaDetails => ({
+  slug: scheme.slug,
+  beneficiaryState: scheme.beneficiaryState || "",
+  schemeFor: scheme.schemeFor || "",
+  title : scheme.cardData.schemeName || "",
+  schemeCategory: scheme.schemeCategory || [],
+  schemeDetails: scheme.schemeDetails || {}
+})
+
+const fillteredScheme = mapScheme(scheme)
+
+    res.status(200).json({
+        message : "Successfull",
+        success : true,
+        data : fillteredScheme
+    })
 }
 
 export const getRecomenderSchemes = () => {
