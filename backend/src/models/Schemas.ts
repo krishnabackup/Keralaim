@@ -1,5 +1,5 @@
 import mongoose from "mongoose";
-
+import { HydratedDocument } from "mongoose";
 
 const CardDataSchema = new mongoose.Schema(
   {
@@ -42,6 +42,8 @@ const SchemeSchema = new mongoose.Schema(
 
     cardData: CardDataSchema,
 
+    aiFailed : { type : Boolean, default : false},
+
     schemeDetails: {
       details: {
         structured: [ContentBlockSchema],
@@ -54,6 +56,7 @@ const SchemeSchema = new mongoose.Schema(
       eligibility: {
         structured: [ContentBlockSchema],
         plainText: String,
+        parsed : mongoose.Schema.Types.Mixed,
       },
       exclusions: {
         structured: [ContentBlockSchema],
@@ -87,6 +90,8 @@ const SchemeSchema = new mongoose.Schema(
 
 
 export type Scheme = mongoose.InferSchemaType<typeof SchemeSchema>;
-
+export type SchemeDocument = HydratedDocument<
+  mongoose.InferSchemaType<typeof SchemeSchema>
+>;
 
 export const SchemeModel = mongoose.model("schemes", SchemeSchema);
