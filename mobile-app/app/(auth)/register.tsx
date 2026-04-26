@@ -4,15 +4,18 @@ import { useState } from "react";
 import { View, Text, TextInput, TouchableOpacity } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { RegisterBody } from "../../types/auth.types";
-import { register } from "@/services/authService";
+import {register } from "@/services/authService";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function RegisterScreen() {
     const [registerBody,setRegisterBody] = useState<RegisterBody>({}); 
+    const {login} = useAuth();
     const handleRegister = async (details : RegisterBody) => {
        const res = await register(details);
        console.log(res);
-       if(res?.data === true){
-        router.replace("/(tabs)/(home)/dashboard");
+       if(res?.success === true){
+        router.replace("/(auth)/questionnaire");
+        login(res?.data.token);
        }else{
         console.log("Not allwed");
        }

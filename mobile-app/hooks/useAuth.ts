@@ -1,3 +1,4 @@
+import { router } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { useEffect, useState } from "react";
 
@@ -17,6 +18,7 @@ export const useAuth = () => {
     const logout =  async() => {
        await SecureStore.deleteItemAsync("token"); 
        setToken(null);
+       router.replace("/(auth)/login");
     }
     const login = async(token : string) => {
         await SecureStore.setItemAsync("token",token)

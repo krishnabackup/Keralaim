@@ -47,6 +47,7 @@ const parsed = JSON.parse(result);
 return parsed;
 }
 catch(error){
+  console.error("Error in aiEligibilityParser", error);
   return { error : true}
 }
 }

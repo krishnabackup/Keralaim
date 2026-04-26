@@ -13,6 +13,7 @@ const run = async () => {
      console.log("Total Schemes to Process:", schemes.length);
      await processBatch(schemes);
      console.log("Eligibility parsing completed for all schemes");
+     process.exit(0);
     }
     catch(error){
         console.error("Error running eligibility parser", error);

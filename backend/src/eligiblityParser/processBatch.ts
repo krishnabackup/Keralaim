@@ -1,7 +1,7 @@
 import {SchemeDocument, SchemeModel } from "../models/Schemas";
 import { aiEligibiltyParser } from "./aiParserEligibility";
 
-const BATCH_SIZE = 5;
+const BATCH_SIZE = 3;
 
 
 

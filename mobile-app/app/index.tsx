@@ -3,7 +3,7 @@ import "../global.css"
 import { Redirect, useRouter } from "expo-router";
 import * as SecureStore from "expo-secure-store";
 import { ActivityIndicator } from "react-native";
-import * as NavigationBar from "expo-navigation-bar";
+
 
 export default function Index() {
     const [loading,setLoading] = useState(true);
@@ -17,7 +17,6 @@ export default function Index() {
       setRoute("/(auth)/login")
      }
      setLoading(false);
-     NavigationBar.setStyle("dark");
     }
     
    authCheck();
