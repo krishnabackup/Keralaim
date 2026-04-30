@@ -31,11 +31,11 @@ const cleanAndFixJSON = (text: string) => {
 
 export const fallbackQuestions = () => {
     return  [
-  {
-    field: 'age',
-    question: 'Are you above 18 years old, my friend?',
-    type: 'yes/no'
-  },
+ {
+      "field": "house_type",
+      "question": "Does your household own a pucca house?",
+      "type": "yes/no"
+    },
   {
     field: 'income',
     question: 'Is your annual income less than ₹500,000, my friend?',
@@ -51,12 +51,11 @@ export const fallbackQuestions = () => {
     question: 'Do you belong to the Scheduled Caste or Scheduled Tribe community, my friend?',
     type: 'yes/no'
   },
-  {
-    field: 'gender',
-    question: 'Do you identify as male, female, transgender, or another gender, my friend?',
-    type: 'string',
-    values: [ 'male', 'female', 'transgender', 'other' ]
-  },
+ {
+      "field": "marital_status",
+      "question": "Are you a married person?",
+      "type": "yes/no"
+    },
   {
     field: 'occupation',
     question: 'Are you employed or self-employed in an unorganized sector, my friend?',

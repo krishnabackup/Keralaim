@@ -8,6 +8,7 @@ import complaintRouter from "./routers/complaintRouter";
 import aichatRouter from "./routers/aichatRouter";
 import serviceLocatorRouter from "./routers/servicelocatorRouter.";
 import { isAuth } from "./middleware/authMiddleware";
+import userRouter from "./routers/userRouter";
 
 
 dotenv.config();
@@ -23,7 +24,7 @@ app.use("/api/schemes",schemeRouter)
 app.use("/api/complaints",complaintRouter)
 app.use("/api/ai",aichatRouter)
 app.use("/api/location",isAuth,serviceLocatorRouter)
-
+app.use("/api/user",isAuth,userRouter)
 const PORT : string | number = process.env.BACKEND_PORT || 5000;
 
 connectDB(process.env.MONGO_URI).then(() => {

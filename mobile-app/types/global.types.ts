@@ -14,3 +14,20 @@ export type Message = {
   text: string;
   sender: "user" | "bot";
 };
+
+export type Question = {
+  field: string;
+  question: string;
+  type: "number" | "string" | "select" | "yes/no";
+  value?: string[];
+};
+
+export type Question_Answer = {
+  category?: string;
+  disability?: string;
+  gender?: string;
+  income?: string | number;
+  occupation?: string;
+  region?: string;
+  religion?: string;
+};

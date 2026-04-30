@@ -44,8 +44,8 @@ export default function TabLayout() {
                     <Ionicons name="person" size={24} color="black" />
                 )
             }} />
-            <Tabs.Screen name="questionnaire" options={{
-                title: "Questionnaire",
+            <Tabs.Screen name="aboutus" options={{
+                title: "About Us",
                 tabBarIcon: () => (
                     <FontAwesome5 name="question" size={24} color="black" />
                 )

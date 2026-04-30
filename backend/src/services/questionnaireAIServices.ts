@@ -22,18 +22,20 @@ export const commanQuestionaireAiService = async () => {
     
     Note: 
     Only generate questions that are relevant to eligibility criteria and can be answered with yes or no or a specific value. Do not generate questions that are not relevant to eligibility criteria.
+    It is should include important questions that can be used to catrgorize users based on their eligibility for different government schemes.
     Only Return valid array of questions, do not include any explanations or additional text. If you are not sure about a question, do not include it in the response. Focus on generating questions that are clear, concise, and directly related to determining eligibility for government schemes.
     The question should be directed to the user , it should include you or your in the question to make it more engaging and personalized. For example, instead of asking "Is the applicant above 18 years old?", ask "Are you above 18 years old?".
     Should geneate as single array of questions without categorizing them into different sections.
+    Should not include age and gender question it is already beign asked in the app, so no need to include it in the questions.
+    Should include caste and religion question as it is important for determining eligibility for many government schemes in Kerala and India.but should not ask problamtically or insensitively, it should be asked in a respectful and non-intrusive way. For example, instead of asking "What is your caste?", ask "Do you belong to the Scheduled Caste or Scheduled Tribe community?".
     Should not include any other text in the response except the array of questions.
     Can also include number type questions
-    if it is gender related question, it should include as values so it can be renderd in UI include all genders like transgender too.
     No need myfriend or dear user in the question, just use you or your to make it more engaging and personalized.
     Only generated 6 strong and relevant questions that can help in determining eligibility for government schemes. Do not generate more than 6 questions.
     Result Format :
     [
     {
-    "field": string (the field in the eligibility criteria that this question is trying to determine, e.g., age, income, occupation, etc.)
+    "field": string (the field in the eligibility criteria that this question is trying to determine, e.g.,  income, occupation, etc.)
      "question": string,
      "type": string (the type of answer expected, e.g., yes/no, number, string, etc.)
      "values": string[] (if the type is string and there are specific expected values, list them here, otherwise can be empty)

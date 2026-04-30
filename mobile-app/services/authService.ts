@@ -1,5 +1,6 @@
 import { RegisterBody } from "@/types/auth.types";
 import api from "./api";
+import { Question, Question_Answer } from "@/types/global.types";
 
 export const login = async (email : string , password : string) => {
     try{
@@ -24,3 +25,15 @@ export const register = async(registerDetails : RegisterBody) => {
     }
 }
 
+export const updateProfile = async (profileData : Question_Answer) => {
+    try{
+        console.log("Updating profile with data:", profileData);
+        const res = await api.patch("/user/profile",{
+            profileData
+        })
+        return res.data
+    }
+    catch(error){
+        console.error("Error updating profile : " , error)
+    }
+}
