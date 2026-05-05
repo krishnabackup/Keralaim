@@ -41,6 +41,7 @@ export const createComplaint = async (req: any, res: any) => {
 
 export const getUserComplaints = async (req: any, res: any) => {
   try {
+    console.log(req.user?.userId )
     const complaints = await Complaint.find({ userId: req.user?.userId }).sort({ createdAt: -1 });
     res.status(200).json({ success: true, data: complaints });
   } catch (err) {

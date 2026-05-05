@@ -1,10 +1,9 @@
 
 import { SchemeModel } from "../models/Schemas";
-import { ApiResponse } from "../types/auth.types";
 import { SchemaCardDetails, SchemaDetails } from "../types/cardTitle,types";
 import { Request, Response } from "express"
-import { PaginatedResponse } from "../types/paginated";
-import { compare } from "bcrypt";
+import { PaginatedResponse } from "../types/paginated";;
+import { getRecomendedSchemes } from "../services/schemeRecomendation";
 
 export const getAllSchemes = async (req: Request, res: Response<PaginatedResponse<SchemaCardDetails[]>>) => {
     const page = Number(req.query.page) || 1;
@@ -67,6 +66,22 @@ const fillteredScheme = mapScheme(scheme)
     })
 }
 
-export const getRecomenderSchemes = () => {
+export const getRecomenderSchemes = async(req:any , res : any) => {
     
+    const userId = req.user?.userId;
+    const page = Number(req.query.page) || 1;
+    const limit = 10;
+    const skip = (page - 1) * limit
+    const {recommendedSchemes,total} = await getRecomendedSchemes(userId);
+    const paginatedRecommendedSchemes = recommendedSchemes ? recommendedSchemes.slice(skip, skip + limit) : []
+    res.status(200).json({
+        message : "Successfull",
+        success : true,
+        data : paginatedRecommendedSchemes,
+        total : total,
+        page : page,
+        totalPages :total ?  Math.ceil(total/limit) : 0
+    })
+    
+
 }

@@ -9,6 +9,7 @@ export interface LoginBody {
 export interface LoginResponseBody{
     userId : Types.ObjectId;
     token : string;
+    isAdmin : boolean;
 }
 
 export interface ApiResponse<T> {
@@ -21,7 +22,7 @@ export interface RegisterBody {
     name : string;
     email : string;
     password : string;
-    dob : Date;
+    dob : string;
     district : string;
 }
 

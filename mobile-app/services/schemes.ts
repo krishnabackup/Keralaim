@@ -22,3 +22,16 @@ export const getSingleScheme = async(slug : string) => {
       }
   }
 }
+
+export const getRecommendedSchemes = async(page : number) => {
+  try {
+    const res = await api.get(`/schemes/recommender?page=${page}`);
+    return res.data
+  }
+  catch(error : any){
+      return {
+        success : error.customMessage.success,
+        message  : error.customMessage.message
+      }
+  }
+}

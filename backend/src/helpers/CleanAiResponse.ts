@@ -1,65 +1,61 @@
-export const extractJSONArray = (text: string) => {
-  const match = text.match(/\[[\s\S]*\]/); // match array
-  return match ? match[0] : null;
+export const extractJSON = (text: string): string | null => {
+  const objectMatch = text.match(/\{[\s\S]*\}/);
+  const arrayMatch = text.match(/\[[\s\S]*\]/);
+  return objectMatch ? objectMatch[0] : arrayMatch ? arrayMatch[0] : null;
 };
 
 export const cleanAiResponse = (response: string) => {
-    try {
-        const jsonArrayString = extractJSONArray(response);
-        if (!jsonArrayString) {
-            console.error("No JSON array found in AI response");
-            return { error: true };
-        }
-        const cleanedAI =  cleanAndFixJSON(jsonArrayString);
-        const parsed = JSON.parse(cleanedAI);
-        return parsed;
-    }
-    catch (error) {
-        console.error("Error parsing AI response", error);
-        return { error: true };
-    }
-}
+  try {
+    const cleaned = response
+      .replace(/```json/gi, "")
+      .replace(/```/g, "")
+      .trim();
 
-const cleanAndFixJSON = (text: string) => {
-  return text
-    .replace(/```json/g, "")
-    .replace(/```/g, "")
-    .replace(/(\w+):/g, '"$1":') // fix keys
-    .replace(/'/g, '"') // single → double quotes
-    .trim();
+    const jsonString = extractJSON(cleaned);
+
+    if (!jsonString) {
+      console.error("No JSON found in AI response");
+      return { error: true };
+    }
+
+    return JSON.parse(jsonString);
+  } catch (error) {
+    console.error("Error parsing AI response", error);
+    return { error: true };
+  }
 };
 
 export const fallbackQuestions = () => {
-    return  [
- {
-      "field": "house_type",
-      "question": "Does your household own a pucca house?",
-      "type": "yes/no"
+  return [
+    {
+      field: "house_type",
+      question: "Does your household own a pucca house?",
+      type: "yes/no",
     },
-  {
-    field: 'income',
-    question: 'Is your annual income less than ₹500,000, my friend?',
-    type: 'yes/no'
-  },
-  {
-    field: 'residence',
-    question: 'Do you reside in Kerala, my friend?',
-    type: 'yes/no'
-  },
-  {
-    field: 'caste',
-    question: 'Do you belong to the Scheduled Caste or Scheduled Tribe community, my friend?',
-    type: 'yes/no'
-  },
- {
-      "field": "marital_status",
-      "question": "Are you a married person?",
-      "type": "yes/no"
+    {
+      field: "income",
+      question: "Is your annual income less than ₹500,000?",
+      type: "yes/no",
     },
-  {
-    field: 'occupation',
-    question: 'Are you employed or self-employed in an unorganized sector, my friend?',
-    type: 'yes/no'
-  }
-]
-}
+    {
+      field: "residence",
+      question: "Do you reside in Kerala?",
+      type: "yes/no",
+    },
+    {
+      field: "caste",
+      question: "Do you belong to the Scheduled Caste or Scheduled Tribe community?",
+      type: "yes/no",
+    },
+    {
+      field: "marital_status",
+      question: "Are you a married person?",
+      type: "yes/no",
+    },
+    {
+      field: "occupation",
+      question: "Are you employed or self-employed in an unorganized sector?",
+      type: "yes/no",
+    },
+  ];
+};

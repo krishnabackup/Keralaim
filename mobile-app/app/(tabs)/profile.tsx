@@ -1,8 +1,9 @@
-import { useAuth } from "@/hooks/useAuth";
+
+import { useAuthStore } from "@/store/useAuthStore";
 import { View ,TouchableOpacity,Text} from "react-native";
 
 export default function ProfileScreen(){
-    const {logout} = useAuth(); 
+    const logout = useAuthStore((state) => state.logout); 
     return(
         <>
         <View className="flex-1 items-center justify-center">

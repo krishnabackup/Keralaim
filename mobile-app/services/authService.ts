@@ -2,7 +2,7 @@ import { RegisterBody } from "@/types/auth.types";
 import api from "./api";
 import { Question, Question_Answer } from "@/types/global.types";
 
-export const login = async (email : string , password : string) => {
+export const loginCall = async (email : string , password : string) => {
     try{
     const res = await api.post("/auth/login",{email : email , password : password})
     return res.data;

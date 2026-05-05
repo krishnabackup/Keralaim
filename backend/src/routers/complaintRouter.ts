@@ -7,5 +7,5 @@ import { isAuth } from "../middleware/authMiddleware";
 const complaintRouter = express.Router();
 
 complaintRouter.post("/", isAuth,upload.single("image"), createComplaint);
-complaintRouter.get("/user", isAuth, getUserComplaints);
+complaintRouter.get("/me", isAuth, getUserComplaints);
 export default complaintRouter;

@@ -28,7 +28,8 @@ export const login = async (req: Request<{}, {}, LoginBody>, res: Response<ApiRe
         success: true,
         data: {
             userId: user._id,
-            token: token
+            token: token,
+            isAdmin : user.isAdmin
         }
     })
 
@@ -36,9 +37,9 @@ export const login = async (req: Request<{}, {}, LoginBody>, res: Response<ApiRe
 
 export const register = async (req: Request<{}, {}, RegisterBody>, res: Response<ApiResponse<RegisterResponseBody>>) => {
     try{
- const { name, district, email, password} = req.body;
-   console.log(name,district,email,password);
-    if (!name || !district || !email || !password) return res.status(400).json({ message: "All fields required ", success: false });
+ const { name, district, email, password,dob} = req.body;
+   console.log(name,district,email,password,dob);
+    if (!name || !district || !email || !password || !dob) return res.status(400).json({ message: "All fields required ", success: false });
 
     const existingUser = await Users.findOne({ email });
 
@@ -51,12 +52,17 @@ export const register = async (req: Request<{}, {}, RegisterBody>, res: Response
 
     const salt = await bcrypt.genSalt();
     const hashedPassword = await bcrypt.hash(password, salt);
-
+    const convertDob = (dob : string) : Date => {
+       const dateofbirth = new Date(dob);
+       dateofbirth.setUTCHours(0,0,0);
+       return dateofbirth;
+    }
     const newUser = await Users.create({
         name: name,
         email: email,
         password: hashedPassword,
         district : district,
+        dob : convertDob(dob)
     });
 
     const token = jwt.sign({

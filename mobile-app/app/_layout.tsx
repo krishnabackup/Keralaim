@@ -2,10 +2,15 @@ import {Stack } from "expo-router";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import "../global.css";
 import {QueryClient,QueryClientProvider} from "@tanstack/react-query"
+import { useAuthStore } from "@/store/useAuthStore";
+import { useEffect } from "react";
 const queryClient = new QueryClient;
 
 export default function RootLayout() {
-
+   const loaduser = useAuthStore((state) => state.loadUser)
+   useEffect(()=>{
+    loaduser();
+   },[])
   return <SafeAreaProvider>
     <QueryClientProvider client={queryClient}>
     <Stack screenOptions={{

@@ -5,12 +5,13 @@ dotenv.config();
 
 export const isAuth = async (req : Request , res : Response , next : NextFunction) => {
    const token = req.headers.authorization?.split(" ")[1];
-
+   console.log(token)
    try{
       if(!token) return res.status(401).json({message : "No token found"});
 
       const decode = jwt.verify(token,process.env.JWT_SECRET as string);
       req.user = decode
+      console.log(decode);
       next();
    }
    catch(error){

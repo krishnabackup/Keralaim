@@ -1,30 +1,19 @@
-import { useEffect, useState } from "react";
-import "../global.css"
-import { Redirect, useRouter } from "expo-router";
-import * as SecureStore from "expo-secure-store";
 import { ActivityIndicator } from "react-native";
-
+import { Redirect } from "expo-router";
+import { useAuthStore } from "@/store/useAuthStore";
 
 export default function Index() {
-    const [loading,setLoading] = useState(true);
-    const [route,setRoute] = useState<string | null>(null);
-  useEffect(()=> {
-    const authCheck = async () => {
-     const token = await SecureStore.getItemAsync("token");
-     if(token){
-      setRoute("/(tabs)/(home)/dashboard");
-     }else{
-      setRoute("/(auth)/login")
-     }
-     setLoading(false);
-    }
-    
-   authCheck();
-  },[])
-  if(loading) return<ActivityIndicator/>
-  if(!route) return null;
+  const { isLoading, isAdmin, token } = useAuthStore();
 
-  return (
-    <Redirect href={route}/>
-  );
+  if (isLoading) return <ActivityIndicator />;
+
+  if (!token) {
+    return <Redirect href="/(auth)/login" />;
+  }
+
+  if (isAdmin) {
+    return <Redirect href="/(admin)/homescreen" />;
+  }
+
+  return <Redirect href="/(tabs)/(home)/dashboard" />;
 }

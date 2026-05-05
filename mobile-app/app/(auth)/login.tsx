@@ -1,9 +1,10 @@
 import { Text, View ,TouchableOpacity,TextInput} from "react-native";
-import { login } from "../../services/authService";
+import { loginCall } from "../../services/authService";
 import * as SecureStore from "expo-secure-store";
 
 import { useState } from "react";
 import { useRouter } from "expo-router";
+import { useAuthStore } from "@/store/useAuthStore";
 
 
 export default function LoginScreen() {
@@ -11,11 +12,17 @@ export default function LoginScreen() {
   const [password ,setPassword] = useState("");
   const [errorMessage , setErrorMessage] = useState("");
   const router = useRouter();
+  const login = useAuthStore((state) => state.login);
    const handleLogin = async (email : string,password : string) => {
-        const res = await login(email,password)
+        const res = await loginCall(email,password)
         if(res.success === true){
-           await SecureStore.setItemAsync("token",res.data.token)
-           router.replace("/(home)/dashboard");
+           login(res.data.token, res.data.isAdmin)
+           console.log(res.data.isAdmin)
+           if (res.data.isAdmin) {
+             router.replace("/(admin)/homescreen");
+           } else {
+             router.replace("/(tabs)/(home)/dashboard");
+           }
         }else{
             setErrorMessage(res.message.message);
         }

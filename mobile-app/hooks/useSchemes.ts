@@ -1,4 +1,4 @@
-import { getAllSchemes , getSingleScheme} from "@/services/schemes"
+import { getAllSchemes , getSingleScheme,getRecommendedSchemes} from "@/services/schemes"
 import { useQuery } from "@tanstack/react-query"
 
 export const useSchemes = (page : number) => {
@@ -13,5 +13,12 @@ export const useScheme = (slug: string) => {
     queryKey: ["scheme", slug],
     queryFn: () => getSingleScheme(slug),
     enabled: !!slug 
+  })
+}
+
+export const useMySchemes = (page:number) => {
+  return useQuery({
+    queryKey : ['myschemes',page],
+    queryFn : () => getRecommendedSchemes(page)
   })
 }

@@ -25,18 +25,15 @@ export const runWorker = async () => {
         })
     );
 
-    while(i<40){
-       const schemes = await SchemeModel.find({
-       "schemeDetails.details.plainText": ""
-    }).limit(CONCURANCY);
-
+    while(i<9){
+       const schemes = await SchemeModel.find({'schemeDetails.eligibility.plainText':'',aiFailed:true}).limit(CONCURANCY);
     if(!schemes.length) {
         console.log("All done");
         break;
     }
     await Promise.all(
         schemes.map(async (scheme,index) => {
-            const page = pages[index] as Page;
+            const page = pages[index % CONCURANCY] as Page;
             console.log("Scrapping :",scheme.slug);
             try {
         const data = await scrapDetailsOfEachScheme(page,`https://www.myscheme.gov.in/schemes/${scheme.slug}`);

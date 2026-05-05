@@ -23,3 +23,15 @@ export interface SchemeTypes {
     applicationProcess : string,
     documentsRequired : string
 }
+
+export interface EligibityField  {
+    category: string | null;
+    region: string | null;
+    gender: string | null;
+    occupation: string | null;
+    income: string | null;
+    disability: string | null;
+    religion: string | null;
+}
+
+

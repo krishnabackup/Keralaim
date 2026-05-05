@@ -4,12 +4,14 @@ import SchemeCard from "@/components/SchemesScreen";
 import SchemeCardSkeleton from "@/components/SckeletonCard";
 import { useSchemes } from "@/hooks/useSchemes";
 import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 import { useState } from "react";
 import { View, Text, TouchableOpacity, ScrollView, TextInput } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 export default function SchemesScreen() {
   const insets = useSafeAreaInsets();
+  const router = useRouter();
   const [pageNumber, setPageNumber] = useState(1);
   const { isLoading, data, isError, isSuccess } = useSchemes(pageNumber);
   if (isError) {
@@ -34,7 +36,7 @@ export default function SchemesScreen() {
 </View>
         {/* Toggle Buttons */}
         <View className="flex-row justify-between mb-4">
-          <TouchableOpacity className="bg-sky-300 px-4 py-2 rounded-lg">
+          <TouchableOpacity className="bg-sky-300 px-4 py-2 rounded-lg" onPress={() => router.push("/(tabs)/(home)/schemes/recommended")}>
             <Text className="font-medium">My Schemes</Text>
           </TouchableOpacity>
 
