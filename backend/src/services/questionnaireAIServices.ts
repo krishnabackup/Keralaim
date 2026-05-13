@@ -53,7 +53,7 @@ export const commanQuestionaireAiService = async () => {
     console.log("Raw AI Response for questionnaire service", result);
     if(!result) return { error : true}
     const cleanAI = cleanAiResponse(result);
-    if(cleanAI.error) return fallbackQuestions();
+    if(cleanAI.error) return fallbackQuestions;
     return cleanAI;
   } catch(error){
     console.error("Error in common questionnaire AI service", error);

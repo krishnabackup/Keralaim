@@ -1,4 +1,4 @@
-import { getAllUserComplaints } from "@/services/complaintServices"
+import { getUserComplaints } from "@/services/complaintServices"
 import { useQuery, useQueryClient } from "@tanstack/react-query"
 import { useFocusEffect } from "expo-router";
 import { useCallback } from "react";
@@ -12,7 +12,7 @@ export const useComplaints = () => {
   );
     return useQuery({
         queryKey : ["complaints"],
-        queryFn : () => getAllUserComplaints(),
+        queryFn : () => getUserComplaints(),
         staleTime : 1000 * 60 * 5,
         retry : 1
     })

@@ -4,7 +4,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { AppBar } from "@/components/AppBar";
 import * as ImagePicker from "expo-image-picker";
-import { uploadComplaintImage } from "@/services/complaintServices";
+import { generateAiDescriptionForComplaint, uploadComplaintImage } from "@/services/complaintServices";
 import * as Location from "expo-location";
 import { useRouter } from "expo-router";
 
@@ -49,6 +49,16 @@ export default function ComplaintRegisterScreen() {
     }
   }
 
+  const handleAiSubmitComplaint = async (text : string) => {
+    const aiGeneratedDescription = await generateAiDescriptionForComplaint(text);
+    console.log("Ai generated text",aiGeneratedDescription)
+    if(aiGeneratedDescription) {
+      setDescription(aiGeneratedDescription)
+    }
+    else{
+      
+    }
+  }
   const handleDetectLocation = async() => {
     let { status } = await Location.requestForegroundPermissionsAsync();
     if (status !== 'granted') {
@@ -105,21 +115,15 @@ export default function ComplaintRegisterScreen() {
             </Pressable>
           </View>
 
-          {/* AI Button */}
-          <TouchableOpacity className="self-start bg-blue-500 px-4 py-2 rounded-full mb-4">
-            <Text className="text-white text-sm font-semibold">
-              Auto generate AI complaint
-            </Text>
-          </TouchableOpacity>
-
-          {/* OR Divider */}
-          <View className="flex-row items-center my-4">
-            <View className="flex-1 h-[1px] bg-gray-300" />
-            <Text className="mx-2 text-gray-500">or</Text>
-            <View className="flex-1 h-[1px] bg-gray-300" />
-          </View>
          {/* Input Box */}
          <TextInput placeholder="Enter complaint title here ..." value={title} onChangeText={(e) => setTitle(e)} className="border border-gray-300 rounded-xl p-3 bg-white text-gray-700 mb-4" />
+          <View className="flex-row justify-end">
+          <TouchableOpacity className="self-start bg-blue-500 px-4 py-2 rounded-full mb-4" onPress={() => handleAiSubmitComplaint(description)}>
+            <Text className="text-white text-sm font-semibold">
+              Improve description with AI 
+            </Text>
+          </TouchableOpacity>
+          </View>
           <TextInput
             placeholder="Write complaint details here ..."
             style={{ textAlignVertical: "top" }}
@@ -128,11 +132,19 @@ export default function ComplaintRegisterScreen() {
             className="h-32 border border-gray-300 rounded-xl p-3 bg-white text-gray-700 mb-5"
             onChangeText={e => setDescription(e)}
           />
+          <View className="flex-row gap-4 items-center">
           <TouchableOpacity className="self-start bg-blue-500 px-4 py-2 rounded-md mb-4" onPress={handleSubmitComplaint}>
             <Text className="text-white text-sm font-semibold">
               Submit Complaint
             </Text>
           </TouchableOpacity>
+          <Text className="font-semibold text-gray-600">OR</Text>
+           <TouchableOpacity className="self-start bg-blue-500 px-4 py-2 rounded-md mb-4">
+            <Text className="text-white text-sm font-semibold">
+              Submit Complaint with AI
+            </Text>
+          </TouchableOpacity>
+          </View>
         </ScrollView>
         </KeyboardAvoidingView>
       </View>

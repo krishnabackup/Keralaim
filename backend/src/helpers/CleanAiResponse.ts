@@ -59,3 +59,38 @@ export const fallbackQuestions = () => {
     },
   ];
 };
+
+export const parseAiQuestion = (
+  raw : string
+) => {
+  try {
+    const match = raw.match(/\[\sS]*\]/)
+
+    if(!match) return null
+
+    const parsed = JSON.parse(match[0]);
+
+    return parsed
+  }
+  catch(error){
+    return null;
+  }
+}
+
+export const parseComplaintAI =
+(raw: string) => {
+
+  try {
+
+    const match =
+      raw.match(/\{[\s\S]*\}/);
+
+    if (!match) return null;
+
+    return JSON.parse(match[0]);
+
+  } catch {
+
+    return null;
+  }
+};

@@ -1,3 +1,4 @@
+import { JwtPayload } from "jsonwebtoken";
 import { Types } from "mongoose";
 
 export interface LoginBody {
@@ -29,4 +30,9 @@ export interface RegisterBody {
 export interface RegisterResponseBody{
     userId : Types.ObjectId;
     token : string;
+}
+
+export interface TokenPayload extends JwtPayload {
+    userId : string,
+    isAdmin : string
 }

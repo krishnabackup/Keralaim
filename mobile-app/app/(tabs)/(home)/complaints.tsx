@@ -10,7 +10,6 @@ export default function ComplaintScreen(){
   const insets = useSafeAreaInsets();
   const router = useRouter();
   const {isLoading, isError, data , error} = useComplaints();
-  console.log("ComplaintScreen data:", data, "error:", error);
   return(
     <>
      <View

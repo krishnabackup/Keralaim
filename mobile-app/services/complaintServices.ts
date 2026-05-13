@@ -29,10 +29,23 @@ export const uploadComplaintImage = async (image : string | null,location : stri
     }
 }
 
-export const getAllUserComplaints = async() => {
+export const getUserComplaints = async() => {
+  console.log("Hello");
   try {
     console.log("Fetching user complaints...");
-    const res = await api.get(`/complaints/user`);
+    const res = await api.get(`/complaints/me`);
+    return res.data.data;
+  }
+  catch(error) {
+    console.error("Error fetching user complaints:", error);
+    throw error;
+  }
+}
+
+export const generateAiDescriptionForComplaint =  async (text : string) => {
+   try {
+    const description = text.trim();
+    const res = await api.post(`/complaints/improve-description`,JSON.stringify({description}));
     return res.data.data;
   }
   catch(error) {

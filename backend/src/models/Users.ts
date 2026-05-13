@@ -6,6 +6,7 @@ export interface IUser {
   password: string;
   isAdmin: boolean;
   district?: string;
+  askedFields? : string[], 
   eligibilityFields?: {
     category?: string;
     region?: string;
@@ -30,13 +31,12 @@ const userSchema = new mongoose.Schema({
   isAdmin: { type: Boolean, required: true, default: false },
   district: String,
   eligibilityFields: {
-    category: String,
-    region: String,
-    gender: String,
-    occupation: String,
-    income: String,
-    disability: String,
-    religion: String,
+    type : Object,
+    default : {}
+  },
+  askedFields : {
+    type : [String],
+    default : []
   },
   eligibilityCached : {
     schemId : {type :mongoose.Schema.Types.ObjectId , ref : "schemes"},
