@@ -1,11 +1,18 @@
-// src/services/ai.service.ts
+
 
 import { openai } from "../config/openai";
+import Groq from "groq-sdk";
+import dotenv from "dotenv"
+dotenv.config();
+
+const qroq = new Groq({
+    apiKey : process.env.GROQ_API_KEY 
+});
 
 export const generateReply = async (message: string) => {
   try {
-    const response = await openai.chat.completions.create({
-      model: "mistralai/mistral-7b-instruct-v0.1",
+    const response = await qroq.chat.completions.create({
+      model: "llama-3.1-8b-instant",
       messages: [
         {
           role: "system",

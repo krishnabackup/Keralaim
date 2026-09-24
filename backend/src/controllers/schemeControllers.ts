@@ -42,6 +42,7 @@ export const getAllSchemes = async (req: Request, res: Response<PaginatedRespons
 
 export const getSingleScheme = async(req : Request , res : Response) => {
     const {slug} = req.params
+    console.log(slug)
     if(!slug) return res.status(400).json({message : "Slug is required" , success : false})
     
     const scheme = await SchemeModel.findOne({slug : slug})
@@ -67,7 +68,6 @@ const fillteredScheme = mapScheme(scheme)
 }
 
 export const getRecomenderSchemes = async(req:any , res : any) => {
-    
     const userId = req.user?.userId;
     const page = Number(req.query.page) || 1;
     const limit = 10;

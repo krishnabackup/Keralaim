@@ -14,6 +14,7 @@ export default function SchemesScreen() {
   const router = useRouter();
   const [pageNumber, setPageNumber] = useState(1);
   const { isLoading, data, isError, isSuccess } = useSchemes(pageNumber);
+ 
   if (isError) {
     return <Text>Error loading schemes</Text>;
   }
@@ -55,7 +56,7 @@ export default function SchemesScreen() {
           <Text>Error loading schemes</Text>
         ) : (
           data?.data?.map((scheme: any) => (
-            <SchemeCard key={scheme.slug} scheme={scheme} />
+            <SchemeCard key={scheme.slug} scheme={scheme} id={scheme.slug}/>
           ))
         )}
         {

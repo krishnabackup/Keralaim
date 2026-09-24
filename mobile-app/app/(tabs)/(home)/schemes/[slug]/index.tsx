@@ -1,8 +1,10 @@
 import { View, Text, ScrollView } from "react-native"
-import { useLocalSearchParams } from "expo-router"
+import { useLocalSearchParams, useRouter } from "expo-router"
 import { useScheme } from "@/hooks/useSchemes"
 import { AppBar } from "@/components/AppBar"
 import { useSafeAreaInsets } from "react-native-safe-area-context"
+import { TouchableOpacity } from "react-native"
+import { Ionicons } from "@expo/vector-icons"
 
 const Section = ({ title, content }: any) => {
   if (!content?.plainText) return null
@@ -42,9 +44,12 @@ const Section = ({ title, content }: any) => {
 const SchemeDetails = () => {
   const { slug } = useLocalSearchParams<{ slug: string }>()
   const insets = useSafeAreaInsets();
-  const { data , isLoading } = useScheme(slug);
+  const router = useRouter();
+  const { data , isLoading , isError} = useScheme(slug);
+  console.log(data)
   const schemeData = data?.data;
-  if (isLoading || !schemeData) {
+  console.log(isError)
+  if (isLoading) {
     return (
       <View className="flex-1 justify-center items-center">
         <Text className="text-gray-500">Loading scheme...</Text>
@@ -52,7 +57,14 @@ const SchemeDetails = () => {
     )
   }
 
-  
+  if(isError) return ( <View className="flex-1 justify-center items-center">
+        <Text className="text-gray-500">Loading scheme...</Text>
+      </View>)
+
+  if(!schemeData) return (
+   <View className="flex-1 justify-center items-center">
+        <Text className="text-gray-500">Error loadiing scheme.</Text>
+      </View>)
   return (
     <View
       className="flex-1 bg-gray-100"
@@ -62,16 +74,29 @@ const SchemeDetails = () => {
     <ScrollView className="flex-1 bg-gray-100 px-4 pt-4">
 
       {/* Title Card */}
-      <View className="bg-blue-500 rounded-2xl p-5 mb-5">
-        <Text className="text-white text-xl font-bold">
-          {schemeData.title}
-        </Text>
+      <View className="bg-blue-500 rounded-2xl p-5 mb-5 relative">
+  
+  <TouchableOpacity
+    style={{
+      position: "absolute",
+      right: 15,
+      top: 15,
+      zIndex: 10,
+    }}
+  >
+    <Ionicons name="bookmark" size={20} color="white" />
+  </TouchableOpacity>
 
-        <Text className="text-blue-100 mt-2 text-sm">
-          {schemeData.schemeFor}
-        </Text>
+  <Text className="text-white text-xl font-bold pr-8">
+    {schemeData.title}
+  </Text>
+
+</View>
+      <View className="flex-row justify-end mb-2">
+        <TouchableOpacity className="bg-blue-400 rounded-2xl p-2" onPress={() => router.push(`/(tabs)/(home)/schemes/${schemeData.title}/question`)}>
+            <Text className="font-bold">Check Eligibility</Text>
+        </TouchableOpacity>
       </View>
-
 
       {/* Sections */}
       <Section title="Details" content={schemeData.schemeDetails.details} />

@@ -45,7 +45,7 @@ export default function RecommendedSchemesScreen() {
           <Text>Error loading schemes</Text>
         ) : (
           data?.data.map((scheme: any) => (
-            <SchemeCard key={scheme.scheme.slug} scheme={scheme.scheme.cardData} />
+            <SchemeCard key={scheme.scheme.slug} scheme={scheme.scheme.cardData} id={scheme.scheme.slug} />
           ))
         )}
         {
